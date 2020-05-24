@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'counter_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,16 +16,18 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: CounterPage(),
+      home: BlocProvider<CounterBloc>(
+          create: (context) => CounterBloc(), child: CounterPage()),
     );
   }
 }
 
 class CounterPage extends StatelessWidget {
-  const CounterPage({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
+
+    final CounterBloc bloc = BlocProvider.of<CounterBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Counter App"),
@@ -34,9 +39,14 @@ class CounterPage extends StatelessWidget {
             Text(
               'You have pushed the button this many times:',
             ),
-            Text(
-              'States Goes Here',
-              style: Theme.of(context).textTheme.headline4,
+            BlocBuilder<CounterBloc, int>(
+              bloc: bloc,
+              builder: (context, data) {
+                return Text(
+                  '$data',
+                  style: Theme.of(context).textTheme.headline4,
+                );
+              },
             ),
           ],
         ),
@@ -45,17 +55,17 @@ class CounterPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           FloatingActionButton(
-            onPressed: null ,// Increment Here,
+            onPressed: ()=> bloc.add(CounterEvents.increment), // Increment Here,
             tooltip: 'Increment',
             child: Icon(Icons.add),
           ),
-
-          SizedBox(width: 10,),
-
+          SizedBox(
+            width: 10,
+          ),
           FloatingActionButton(
-            onPressed: null , //Decrement Here
+            onPressed: () => bloc.add(CounterEvents.decrement), //Decrement Here
             tooltip: 'Decrement',
-            child: Icon(Icons.add),
+            child: Icon(Icons.remove),
           ),
         ],
       ),
