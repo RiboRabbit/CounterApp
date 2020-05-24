@@ -5,25 +5,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        
-        
-        
-        
-        
-        
-        
-        
-        
         primarySwatch: Colors.blue,
-        
-        
-        
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
@@ -33,15 +20,6 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
-
-  
-  
-  
-
-  
-  
-  
-  
 
   final String title;
 
@@ -54,47 +32,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _incrementCounter() {
     setState(() {
-      
-      
-      
-      
-      
       _counter++;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    
-    
-    
-    
-    
-    
     return Scaffold(
       appBar: AppBar(
-        
-        
         title: Text(widget.title),
       ),
       body: Center(
-        
-        
         child: Column(
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
-          
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
@@ -107,11 +56,21 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), 
+      floatingActionButton: Row(
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Increment',
+            child: Icon(Icons.add),
+          ),
+          SizedBox(width: 10,),
+          FloatingActionButton(
+            onPressed: _incrementCounter,
+            tooltip: 'Decrement',
+            child: Icon(Icons.add),
+          ),
+        ],
+      ),
     );
   }
 }
